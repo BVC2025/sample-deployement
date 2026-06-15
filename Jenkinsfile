@@ -11,15 +11,14 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'pip install -r requirements.txt'
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
 
         stage('Run FastAPI') {
             steps {
-                bat 'start cmd /c uvicorn main:app --host 0.0.0.0 --port 8000'
+                sh 'nohup python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 > fastapi.log 2>&1 &'
             }
         }
-
     }
 }
